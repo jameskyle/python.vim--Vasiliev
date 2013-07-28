@@ -79,6 +79,7 @@ elseif exists("b:current_syntax")
   finish
 endif
 
+let python_highlight_all = 1
 if exists("python_highlight_all") && python_highlight_all != 0
   " Not override previously set options
   if !exists("python_highlight_builtins")
@@ -371,4 +372,31 @@ if version >= 508 || !exists("did_python_syn_inits")
   delcommand HiLink
 endif
 
+" PEP 7 & 8 Syntax rules
+set tabstop=8
+
+" What to use for an indent.
+" This will affect Ctrl-T and 'autoindent'.
+" Python: 4 spaces
+set shiftwidth=4
+set expandtab
+
+" Use the below highlight group when displaying bad whitespace is desired.
+highlight BadWhitespace ctermbg=red guibg=red
+
+" Display tabs at the beginning of a line in Python mode as bad.
+match BadWhitespace /^\t\+/
+" Make trailing whitespace be flagged as bad.
+match BadWhitespace /\s\+$/
+
+" Wrap text after a certain number of characters
+" Python: 79
+set textwidth=0
+
+" Automatically indent based on file type: ``filetype indent on``
+" Keep indentation level from previous line: ``set autoindent``
+" Folding based on indentation: ``set foldmethod=indent``
+filetype indent on
+set autoindent
+set foldmethod=indent
 let b:current_syntax = "python"
